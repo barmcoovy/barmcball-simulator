@@ -1,8 +1,8 @@
 import React from "react";
 
 const NationalityCard = ({
-  selectNationality,
-  handleNationalityCLick,
+  selectedNationality,
+  handleNationalityClick,
   FONT_MAIN,
 }) => {
   const NATIONALITIES = [
@@ -34,6 +34,10 @@ const NationalityCard = ({
       name: "Poland",
       flag: "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg",
     },
+    {
+      name: "Portugal",
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
+    },
   ];
   return (
     <>
@@ -46,18 +50,21 @@ const NationalityCard = ({
       </h3>
       <section className="w-[30%] text-white border-2 border-white rounded-xl p-4 mt-6 shadow-2xl grid gap-2 grid-cols-2">
         {NATIONALITIES.map((nationality, key) => {
+          const isSelected =
+            selectedNationality?.name === nationality.name &&
+            selectedNationality?.key === key;
           return (
             <div
               key={key}
-              onClick={() => handleNationalityClick(nationality.name)}
-              className="flex items-center  gap-2 cursor-pointer hover:bg-white/20 p-2 rounded-md transition-all duration-300 text-center"
+              onClick={() => handleNationalityClick(nationality.name, key)}
+              className={`flex items-center gap-2 cursor-pointer hover:bg-white/20 p-2 rounded-md transition-all duration-300 text-center ${isSelected ? "bg-white/20" : ""}`}
             >
               <img
                 src={nationality.flag}
                 alt={nationality.name}
                 className="w-8 h-5 object-cover rounded-sm"
               />
-              <span>{nationality.name}</span>
+              <span style={{ fontFamily: FONT_MAIN }}>{nationality.name}</span>
             </div>
           );
         })}
